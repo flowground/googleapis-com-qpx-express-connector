@@ -1,0 +1,178 @@
+{
+    "type": "object",
+    "properties": {
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json"
+            ],
+            "default": "json"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "A QPX Express search request.",
+            "properties": {
+                "request": {
+                    "description": "A QPX Express search request. Required values are at least one adult or senior passenger, an origin, a destination, and a date.",
+                    "properties": {
+                        "maxPrice": {
+                            "description": "Do not return solutions that cost more than this price. The alphabetical part of the price is in ISO 4217. The format, in regex, is [A-Z]{3}\\d+(\\.\\d+)? Example: $102.07",
+                            "type": "string"
+                        },
+                        "passengers": {
+                            "description": "Counts for each passenger type in the request.",
+                            "properties": {
+                                "adultCount": {
+                                    "description": "The number of passengers that are adults.",
+                                    "format": "int32",
+                                    "type": "integer"
+                                },
+                                "childCount": {
+                                    "description": "The number of passengers that are children.",
+                                    "format": "int32",
+                                    "type": "integer"
+                                },
+                                "infantInLapCount": {
+                                    "description": "The number of passengers that are infants travelling in the lap of an adult.",
+                                    "format": "int32",
+                                    "type": "integer"
+                                },
+                                "infantInSeatCount": {
+                                    "description": "The number of passengers that are infants each assigned a seat.",
+                                    "format": "int32",
+                                    "type": "integer"
+                                },
+                                "kind": {
+                                    "default": "qpxexpress#passengerCounts",
+                                    "description": "Identifies this as a passenger count object, representing the number of passengers. Value: the fixed string qpxexpress#passengerCounts.",
+                                    "type": "string"
+                                },
+                                "seniorCount": {
+                                    "description": "The number of passengers that are senior citizens.",
+                                    "format": "int32",
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "refundable": {
+                            "description": "Return only solutions with refundable fares.",
+                            "type": "boolean"
+                        },
+                        "saleCountry": {
+                            "description": "IATA country code representing the point of sale. This determines the \"equivalent amount paid\" currency for the ticket.",
+                            "type": "string"
+                        },
+                        "slice": {
+                            "description": "The slices that make up the itinerary of this trip. A slice represents a traveler's intent, the portion of a low-fare search corresponding to a traveler's request to get between two points. One-way journeys are generally expressed using one slice, round-trips using two. An example of a one slice trip with three segments might be BOS-SYD, SYD-LAX, LAX-BOS if the traveler only stopped in SYD and LAX just long enough to change planes.",
+                            "items": {
+                                "description": "Criteria a desired slice must satisfy.",
+                                "properties": {
+                                    "alliance": {
+                                        "description": "Slices with only the carriers in this alliance should be returned; do not use this field with permittedCarrier. Allowed values are ONEWORLD, SKYTEAM, and STAR.",
+                                        "type": "string"
+                                    },
+                                    "date": {
+                                        "description": "Departure date in YYYY-MM-DD format.",
+                                        "type": "string"
+                                    },
+                                    "destination": {
+                                        "description": "Airport or city IATA designator of the destination.",
+                                        "type": "string"
+                                    },
+                                    "kind": {
+                                        "default": "qpxexpress#sliceInput",
+                                        "description": "Identifies this as a slice input object, representing the criteria a desired slice must satisfy. Value: the fixed string qpxexpress#sliceInput.",
+                                        "type": "string"
+                                    },
+                                    "maxConnectionDuration": {
+                                        "description": "The longest connection between two legs, in minutes, you are willing to accept.",
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "maxStops": {
+                                        "description": "The maximum number of stops you are willing to accept in this slice.",
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
+                                    "origin": {
+                                        "description": "Airport or city IATA designator of the origin.",
+                                        "type": "string"
+                                    },
+                                    "permittedCarrier": {
+                                        "description": "A list of 2-letter IATA airline designators. Slices with only these carriers should be returned.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "permittedDepartureTime": {
+                                        "description": "Slices must depart in this time of day range, local to the point of departure.",
+                                        "properties": {
+                                            "earliestTime": {
+                                                "description": "The earliest time of day in HH:MM format.",
+                                                "type": "string"
+                                            },
+                                            "kind": {
+                                                "default": "qpxexpress#timeOfDayRange",
+                                                "description": "Identifies this as a time of day range object, representing two times in a single day defining a time range. Value: the fixed string qpxexpress#timeOfDayRange.",
+                                                "type": "string"
+                                            },
+                                            "latestTime": {
+                                                "description": "The latest time of day in HH:MM format.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "preferredCabin": {
+                                        "description": "Prefer solutions that book in this cabin for this slice. Allowed values are COACH, PREMIUM_COACH, BUSINESS, and FIRST.",
+                                        "type": "string"
+                                    },
+                                    "prohibitedCarrier": {
+                                        "description": "A list of 2-letter IATA airline designators. Exclude slices that use these carriers.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "solutions": {
+                            "description": "The number of solutions to return, maximum 500.",
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "ticketingCountry": {
+                            "description": "IATA country code representing the point of ticketing.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        }
+    }
+}
